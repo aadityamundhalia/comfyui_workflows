@@ -236,6 +236,52 @@ fi
 
 echo ""
 echo "========================================"
+echo "Downloading Workflows..."
+echo "========================================"
+echo ""
+
+# Create workflows directory if it doesn't exist
+WORKFLOWS_PATH="./user/default/workflows"
+mkdir -p "$WORKFLOWS_PATH"
+
+# Download workflows
+echo "Downloading z-image controlnet workflow..."
+wget -q -O "$WORKFLOWS_PATH/z-image-controlnet.json" \
+    "https://raw.githubusercontent.com/aadityamundhalia/comfyui_workflows/refs/heads/main/z-image%20controlnet.json"
+if [ $? -eq 0 ]; then
+    echo "✓ z-image controlnet workflow downloaded"
+else
+    echo "✗ Failed to download z-image controlnet workflow"
+fi
+
+echo "Downloading wan_animate workflow..."
+wget -q -O "$WORKFLOWS_PATH/wan_animate.json" \
+    "https://raw.githubusercontent.com/aadityamundhalia/comfyui_workflows/refs/heads/main/wan_animate.json"
+if [ $? -eq 0 ]; then
+    echo "✓ wan_animate workflow downloaded"
+else
+    echo "✗ Failed to download wan_animate workflow"
+fi
+
+echo ""
+echo "========================================"
+echo "Restarting ComfyUI..."
+echo "========================================"
+echo ""
+
+# Kill any existing ComfyUI processes
+pkill -f "python.*main.py" || true
+sleep 2
+
+# Start ComfyUI in the background
+echo "Starting ComfyUI server..."
+python main.py &
+sleep 5
+
+echo "✓ ComfyUI restarted"
+
+echo ""
+echo "========================================"
 echo "✓ All downloads and installations completed successfully!"
 echo "========================================"
 echo ""
