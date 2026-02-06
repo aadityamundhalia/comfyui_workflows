@@ -1,2 +1,1 @@
-# comfyui_workflows
-my comfyui workflows
+`wget -O /workspace/runpod-slim/ComfyUI/setup.sh https://raw.githubusercontent.com/aadityamundhalia/comfyui_workflows/main/setup.sh && chmod +x /workspace/runpod-slim/ComfyUI/setup.sh && /workspace/runpod-slim/ComfyUI/setup.sh`
