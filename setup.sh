@@ -157,30 +157,43 @@ echo "✓ All model downloads completed"
 
 echo ""
 echo "========================================"
-echo "Installing Ollama..."
+echo "Setting up Ollama..."
 echo "========================================"
 echo ""
 
-# Check if ollama is already installed
-if command -v ollama &> /dev/null; then
-    echo "✓ Ollama is already installed"
+# Check if ollama is already running
+if pgrep -x "ollama" > /dev/null; then
+    echo "✓ Ollama is already running"
 else
-    echo "Installing zstd dependency..."
-    apt-get update -qq && apt-get install -y zstd > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo "✓ zstd installed"
+    # Check if ollama is installed
+    if command -v ollama &> /dev/null; then
+        echo "✓ Ollama is installed but not running, starting service..."
+        ollama serve &
+        sleep 3
+        echo "✓ Ollama service started"
     else
-        echo "✗ Failed to install zstd"
-        exit 1
-    fi
-    
-    echo "Installing Ollama..."
-    curl -fsSL https://ollama.ai/install.sh | sh
-    if [ $? -eq 0 ]; then
-        echo "✓ Ollama installed successfully"
-    else
-        echo "✗ Failed to install Ollama"
-        exit 1
+        echo "Ollama not found, installing..."
+        echo "Installing zstd dependency..."
+        apt-get update -qq && apt-get install -y zstd > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo "✓ zstd installed"
+        else
+            echo "✗ Failed to install zstd"
+            exit 1
+        fi
+        
+        echo "Installing Ollama..."
+        curl -fsSL https://ollama.ai/install.sh | sh
+        if [ $? -eq 0 ]; then
+            echo "✓ Ollama installed successfully"
+            echo "Starting Ollama service..."
+            ollama serve &
+            sleep 3
+            echo "✓ Ollama service started"
+        else
+            echo "✗ Failed to install Ollama"
+            exit 1
+        fi
     fi
 fi
 
@@ -249,22 +262,27 @@ mkdir -p "$WORKFLOWS_PATH"
 
 # Download workflows
 echo "Downloading z-image controlnet workflow..."
-wget -q -O "$WORKFLOWS_PATH/z-image-controlnet.json" \
+wget --show-progress -O "$WORKFLOWS_PATH/z-image-controlnet.json" \
     "https://raw.githubusercontent.com/aadityamundhalia/comfyui_workflows/refs/heads/main/z-image%20controlnet.json"
 if [ $? -eq 0 ]; then
     echo "✓ z-image controlnet workflow downloaded"
 else
-    echo "✗ Failed to download z-image controlnet workflow"
+    echo "⚠ Note: z-image controlnet workflow download failed (may not exist or network issue)"
 fi
 
 echo "Downloading wan_animate workflow..."
-wget -q -O "$WORKFLOWS_PATH/wan_animate.json" \
+wget --show-progress -O "$WORKFLOWS_PATH/wan_animate.json" \
     "https://raw.githubusercontent.com/aadityamundhalia/comfyui_workflows/refs/heads/main/wan_animate.json"
 if [ $? -eq 0 ]; then
     echo "✓ wan_animate workflow downloaded"
 else
-    echo "✗ Failed to download wan_animate workflow"
+    echo "⚠ Note: wan_animate workflow download failed (may not exist or network issue)"
 fi
+
+# Check what was actually downloaded
+echo ""
+echo "Workflows in $WORKFLOWS_PATH:"
+ls -lh "$WORKFLOWS_PATH" 2>/dev/null | tail -n +2 || echo "  (No workflows found)"
 
 echo ""
 echo "========================================"
