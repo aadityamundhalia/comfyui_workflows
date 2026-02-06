@@ -213,6 +213,7 @@ echo ""
 
 # Array of custom node repositories
 declare -a CUSTOM_NODES=(
+    "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
     "https://github.com/city96/ComfyUI-GGUF"
     "https://github.com/rgthree/rgthree-comfy"
@@ -322,6 +323,7 @@ echo "  • YOLOv8 Detection: $MODELS_PATH/ultralytics/bbox"
 echo "  • SAM Models: $MODELS_PATH/sams"
 echo ""
 echo "Installed custom nodes:"
+echo "  • ComfyUI-Manager"
 echo "  • comfyui_controlnet_aux"
 echo "  • ComfyUI-GGUF"
 echo "  • rgthree-comfy"
