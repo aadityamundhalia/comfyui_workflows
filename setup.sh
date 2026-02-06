@@ -5,6 +5,9 @@
 
 set -e  # Exit on error
 
+# Start timing
+START_TIME=$(date +%s)
+
 # Define base paths - script should be run from ComfyUI directory
 MODELS_PATH="./models"
 CUSTOM_NODES_PATH="./custom_nodes"
@@ -312,3 +315,19 @@ echo "  • ComfyUI-ollama-aditya"
 echo ""
 echo "Ollama models:"
 echo "  • qwen3-vl:8b"
+echo ""
+echo "Workflows:"
+echo "  • z-image-controlnet.json"
+echo "  • wan_animate.json"
+echo ""
+
+# Calculate execution time
+END_TIME=$(date +%s)
+ELAPSED_TIME=$((END_TIME - START_TIME))
+HOURS=$((ELAPSED_TIME / 3600))
+MINUTES=$(((ELAPSED_TIME % 3600) / 60))
+SECONDS=$((ELAPSED_TIME % 60))
+
+echo "========================================"
+echo "⏱️  Total Execution Time: ${HOURS}h ${MINUTES}m ${SECONDS}s"
+echo "========================================"
