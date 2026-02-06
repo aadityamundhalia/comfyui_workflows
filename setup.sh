@@ -8,16 +8,16 @@ set -e  # Exit on error
 # Start timing
 START_TIME=$(date +%s)
 
-# Define base paths - use absolute paths so script works from anywhere
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODELS_PATH="$SCRIPT_DIR/models"
-CUSTOM_NODES_PATH="$SCRIPT_DIR/custom_nodes"
+# Define base ComfyUI path - hardcoded for consistency
+COMFYUI_PATH="/workspace/runpod-slim/ComfyUI"
+MODELS_PATH="$COMFYUI_PATH/models"
+CUSTOM_NODES_PATH="$COMFYUI_PATH/custom_nodes"
 
 echo ""
 echo "========================================"
 echo "ComfyUI Setup Script"
 echo "========================================"
-echo "Running from: $SCRIPT_DIR"
+echo "ComfyUI Path: $COMFYUI_PATH"
 echo ""
 
 # Create necessary directories
@@ -265,7 +265,7 @@ echo "========================================"
 echo ""
 
 # Create workflows directory if it doesn't exist
-WORKFLOWS_PATH="$SCRIPT_DIR/user/default/workflows"
+WORKFLOWS_PATH="$COMFYUI_PATH/user/default/workflows"
 mkdir -p "$WORKFLOWS_PATH"
 
 # Download workflows
