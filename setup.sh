@@ -268,20 +268,17 @@ fi
 
 echo ""
 echo "========================================"
-echo "Restarting ComfyUI..."
+echo "⚠️  ComfyUI Restart Required"
 echo "========================================"
 echo ""
-
-# Kill any existing ComfyUI processes
-pkill -f "python.*main.py" || true
-sleep 2
-
-# Start ComfyUI in the background
-echo "Starting ComfyUI server..."
-python main.py &
-sleep 5
-
-echo "✓ ComfyUI restarted"
+echo "Please restart ComfyUI to load all the new:"
+echo "  • Custom nodes"
+echo "  • Models"
+echo "  • Workflows"
+echo ""
+echo "If running locally: Press Ctrl+C and restart"
+echo "If running on RunPod: Restart the pod from the dashboard"
+echo ""
 
 echo ""
 echo "========================================"
