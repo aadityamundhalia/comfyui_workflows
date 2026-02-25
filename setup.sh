@@ -118,6 +118,7 @@ declare -a MODELS=(
     "https://huggingface.co/GritTin/LoraStableDiffusion/resolve/c7766cc3c9b8b4f914932ce27f1cd48f25434636/Eyeful_v2-Paired.pt|$MODELS_PATH/ultralytics/bbox"
     "https://huggingface.co/guon/hand-eyes/resolve/ef8ba0842cdc5ba8cf8dacee20dc95e0330c405f/lips_v1.pt|$MODELS_PATH/ultralytics/bbox"
     "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth|$MODELS_PATH/sams"
+    "https://huggingface.co/hfmaster/models-moved/resolve/cab6dcee2fbb05e190dbb8f536fbdaa489031a14/rife/rife49.pth|$CUSTOM_NODES_PATH/ComfyUI-Frame-Interpolation/ckpts/rife"
 )
 
 # Function to download model with parallel support
@@ -321,6 +322,7 @@ echo "  • CLIP Vision: $MODELS_PATH/clip_vision"
 echo "  • Model Patches: $MODELS_PATH/model_patches"
 echo "  • YOLOv8 Detection: $MODELS_PATH/ultralytics/bbox"
 echo "  • SAM Models: $MODELS_PATH/sams"
+echo "  • RIFE Model: $CUSTOM_NODES_PATH/ComfyUI-Frame-Interpolation/ckpts/rife"
 echo ""
 echo "Installed custom nodes:"
 echo "  • ComfyUI-Manager"
